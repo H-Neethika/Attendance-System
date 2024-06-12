@@ -60,7 +60,7 @@ app.post("/login", async (req, res) => {
 });
 
 app.get('/home',verifyToken,(req,res)=>{
-res.send(`welcome ${req.user.username}`)
+res.send(`${req.user.username}`)
 })
 
 app.get("/", (req, res) => {
