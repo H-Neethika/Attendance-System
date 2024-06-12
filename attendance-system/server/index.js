@@ -59,7 +59,7 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.get('/profile',verifyToken,(req,res)=>{
+app.get('/home',verifyToken,(req,res)=>{
 res.send(`welcome ${req.user.username}`)
 })
 

@@ -1,41 +1,29 @@
-import { useState, React } from "react";
+import { useState, React , useContext} from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import LoginImage from "../assets/login.png";
+import { AuthContext } from "../context/AuthContext";
 
 export default function LoginPage() {
+  const { dispatch } = useContext(AuthContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const handleLogin = async () => {
+    const response = await axios.post("http://localhost:3001/login", {
+      username: username,
+      password: password
+    });
 
-  async function login(event) {
-    event.preventDefault();
-    try {
-      await axios
-        .post("http://localhost:8081/api/users/login", {
-          usename: username,
-          password: password,
-        })
-        .then(
-          (res) => {
-            console.log(res.data);
+    dispatch({
+      type: "LOGIN",
+      payload: response.data.token,
+    });
 
-            if (res.data.message == "Email not exits") {
-              alert("Email not exits");
-            } else if (res.data.message == "Login Success") {
-              navigate("/homePage");
-            } else {
-              alert("Incorrect Email and Password not match");
-            }
-          },
-          (fail) => {
-            console.error(fail); // Error!
-          }
-        );
-    } catch (err) {
-      alert(err);
-    }
-  }
+    localStorage.setItem("token", response.data.token);
+
+    navigate("/home");
+  };
 
   return (
     <>
@@ -119,6 +107,7 @@ export default function LoginPage() {
               <button
                 className="w-1/2 mx-auto py-4 bg-purple text-white font-semibold p-2 my-4 rounded-2xl mb-6 hover:bg-purple hover:text-white hover:border hover:border-gray-300 transform hover:scale-110 duration-100"
                 type="submit"
+                onClick={handleLogin}
               >
                 Login Now
               </button>
