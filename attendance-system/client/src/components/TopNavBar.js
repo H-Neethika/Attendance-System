@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import attendanceLogo from "../assets/attendance.svg";
+import { AuthContext } from "../context/AuthContext";
 
 const TopNavBar = () => {
+  const { user, dispatch } = useContext(AuthContext);
   const handleSignout = () => {
-    
-  };
+    localStorage.removeItem("token");
+    dispatch({
+      type: "LOGOUT",
+    });
+  }; 
+
   return (
     <div>
       <nav className="bg-purple border-gray-200 dark:bg-gray-900 ">
