@@ -1,4 +1,4 @@
-import { useState, React , useContext} from "react";
+import { useState, React, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import LoginImage from "../assets/login.png";
@@ -8,26 +8,38 @@ export default function LoginPage() {
   const { dispatch } = useContext(AuthContext);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
   const navigate = useNavigate();
-  const handleLogin = async () => {
-    const response = await axios.post("http://localhost:3001/login", {
-      username: username,
-      password: password
-    });
+  const handleLogin = async (event) => {
+    event.preventDefault();
 
-    dispatch({
-      type: "LOGIN",
-      payload: response.data.token,
-    });
+    try {
+      const response = await axios.post("http://localhost:3001/login", {
+        username: username,
+        password: password,
+      });
 
-    localStorage.setItem("token", response.data.token);
+      dispatch({
+        type: "LOGIN",
+        payload: response.data.token,
+      });
 
-    navigate("/home");
+      localStorage.setItem("token", response.data.token);
+
+      navigate("/home");
+    } catch (err) {
+      if (err.response) {
+        setError(err.response.data.message || "Invalid username or password");
+      } else {
+        setError("Network error. Please try again later.");
+      }
+    }
   };
 
   return (
     <>
-      <form>
+      <form onSubmit={handleLogin}>
         <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-purple via-light-purple to-white">
           <div className="relative flex flex-col m-6 space-y-8 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0">
             <div className="flex flex-col justify-center p-8 md:p-14">
@@ -35,6 +47,7 @@ export default function LoginPage() {
               <span className="font-light text-slate-500 font-medium mb-8 text-xl">
                 Enter Your Username & Password to Login
               </span>
+
               <div className="py-1 my-4">
                 <div className="w-full p-2 border bg-light-purple  rounded-xl placeholder:font-medium placeholder:text-slate-500 relative outline-none border-transparent">
                   <div className="absolute my-2 mx-1">
@@ -103,7 +116,7 @@ export default function LoginPage() {
                   </div>
                 </div>
               </div>
-
+              {error && <div className="mb-4 text-red-500">{error}</div>}
               <button
                 className="w-1/2 mx-auto py-4 bg-purple text-white font-semibold p-2 my-4 rounded-2xl mb-6 hover:bg-purple hover:text-white hover:border hover:border-gray-300 transform hover:scale-110 duration-100"
                 type="submit"

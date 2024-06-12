@@ -5,7 +5,6 @@ import { AuthContext } from "../context/AuthContext";
 const TopNavBar = () => {
   const { user, dispatch } = useContext(AuthContext);
   const handleSignout = () => {
-    localStorage.removeItem("token");
     dispatch({
       type: "LOGOUT",
     });
