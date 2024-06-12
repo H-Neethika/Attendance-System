@@ -72,7 +72,7 @@ export default function LoginPage() {
                       type="text"
                       name="pass"
                       id="pass"
-                      className="w-full p-2  bg-light-purple border-light-purple  placeholder:font-semibold placeholder:text-black focus:outline-none focus:border-transparent"
+                      className="w-full p-2 focus:ring-0 bg-light-purple border-light-purple  placeholder:font-semibold placeholder:text-black focus:outline-none focus:border-transparent"
                       placeholder="Username"
                       value={username}
                       onChange={(event) => {
@@ -106,7 +106,7 @@ export default function LoginPage() {
                       type="password"
                       name="pass"
                       id="pass"
-                      className="w-full p-2  bg-light-purple border-light-purple  placeholder:font-semibold placeholder:text-black focus:outline-none focus:border-transparent"
+                      className="w-full p-2 focus:ring-0 bg-light-purple border-light-purple  placeholder:font-semibold placeholder:text-black focus:outline-none focus:border-transparent"
                       placeholder="Password"
                       value={password}
                       onChange={(event) => {
