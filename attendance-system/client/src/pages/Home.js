@@ -1,5 +1,6 @@
-import React from "react";
-
+import React, { useContext, useEffect, useState } from 'react'
+import { AuthContext } from '../context/AuthContext'
+import axios from 'axios';
 import TopNavBar from "../components/TopNavBar";
 import "flowbite";
 import { Carousel } from "flowbite-react";
@@ -8,6 +9,26 @@ import attendance2 from "../assets/Teaching.svg";
 import budget from "../assets/budget.png";
 
 const Home = () => {
+  const {user,dispatch}=useContext(AuthContext);
+    const [userName,setUsername]=useState('');
+
+    const getUserProfile=async()=>{
+
+      axios.defaults.headers.common["Authorization"] = user;
+
+        await axios.get('http://localhost:3001/home')
+        .then(res=>{
+            setUsername(res.data);
+            console.log(userName);
+        })
+        .catch(e=>{
+            console.log(e);
+        })
+    }
+
+    useEffect(()=>{
+      getUserProfile();
+    },[]);
   return (
     <div>
       <TopNavBar />
@@ -25,7 +46,7 @@ const Home = () => {
             </div>
             <div className="md:w-1/2 pt-8">
               <h1 className="text-1xl md:text-3xl lg:text-5xl font-semibold mb-4 text-slate-600 md:w-3/4 leading-snug">
-                Welcome<span className="text-purple">To Attendance System</span>
+                Welcome {user && userName} <span className="text-purple">To Attendance System</span>
               </h1>
               <p className="text-NeutralGrey text-lg pt-8">
                 Learn how to effectively use the attendance system to mark
