@@ -32,7 +32,7 @@ const Home = () => {
   return (
     <div>
       <TopNavBar />
-      <div className="w-full min-h-screen h-screen">
+      <div className="w-full min-h-screen h-screen pt-20 overflow-auto h-screen overflow-y-auto">
         <Carousel
           onSlideChange={(index) => console.log("onSlideChange()", index)}
         >
@@ -41,7 +41,7 @@ const Home = () => {
               <img
                 src={attendance1}
                 alt="Attendance Guidelines"
-                className=" sm:h-2/3"
+                className=" sm:h-2/3 h-2/3"
               />
             </div>
             <div className="md:w-1/2 pt-0 text-center md:text-left">
@@ -58,7 +58,7 @@ const Home = () => {
 
           <div className="mx-auto flex flex-col md:flex-row w-full h-screen items-center justify-center bg-slate-200 dark:bg-gray-700 dark:text-white">
             <div className="flex justify-center items-center md:w-1/2 w-full">
-              <img src={attendance2} alt="Attendance Notices"  className=" sm:h-2/3"/>
+              <img src={attendance2} alt="Attendance Notices"  className=" sm:h-2/3 h-3/5"/>
             </div>
             <div className="md:w-1/2 pt-0 text-center md:text-left px-4 md:px-8">
               <h1 className="text-2xl md:text-3xl lg:text-5xl font-semibold mb-4 text-slate-600 leading-snug">
@@ -75,7 +75,7 @@ const Home = () => {
 
           <div className="mx-auto flex flex-col md:flex-row items-center justify-center w-full h-screen bg-slate-200 dark:bg-gray-700 dark:text-white">
             <div className="flex justify-center items-center md:w-1/2 w-full mb-8 md:mb-0">
-              <img src={attendance3} alt="Attendance Reports"  className=" sm:h-2/3"/>
+              <img src={attendance3} alt="Attendance Reports"  className=" sm:h-2/3 h-2/5 mt-60 md:mt-0"/>
             </div>
             <div className="md:w-1/2 w-full px-4 md:px-8">
               <h1 className="text-center md:text-left text-2xl md:text-3xl lg:text-5xl font-semibold mb-4 text-slate-600 leading-snug">
